@@ -8,11 +8,15 @@ import { Observable } from 'rxjs';
 })
 export class AppServiceService {
 
-  private ROOT_URL: string;
+  readonly ROOT_URL: string;
 
   constructor(private http: HttpClient) {
-    this.ROOT_URL ='http://localhost:8080'
+    this.ROOT_URL ='http://localhost:8080';
    }
+
+   initializeDB() {
+    return this.http.get('/api/initializeDB');
+  }
 
    getTeacherData() {
     return this.http.get('/api/listTeachers')
@@ -33,4 +37,8 @@ export class AppServiceService {
    editTeacher(payload: Object){
     return this.http.post('/api/editTeacher', payload)
   }
+
+  
+
+
 }

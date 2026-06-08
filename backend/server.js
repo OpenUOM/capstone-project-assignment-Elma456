@@ -1,5 +1,6 @@
 const express = require ("express");
 const bodyParser = require  ("body-parser");
+const cors = require("cors");
 const app = express();
 
 
@@ -18,7 +19,7 @@ const {
   dbinitialize
 } = require ("./database.js");
 
-
+app.use(cors());
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -59,6 +60,7 @@ app.post("/addTeacher", async function (req, res) {
   res.setHeader("Content-Type", "application/json");
   res.end(JSON.stringify(data));
 });
+
 
 app.post("/editTeacher", async function (req, res) {
   let reqBody = req.body;
