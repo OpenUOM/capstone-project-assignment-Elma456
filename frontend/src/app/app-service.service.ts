@@ -40,5 +40,25 @@ export class AppServiceService {
 
   
 
+  getStudentData() {
+    return this.http.get(this.ROOT_URL + '/listStudents');
+  }
+
+  getOneStudentData(payload: Object) {
+    return this.http.post(this.ROOT_URL + '/getStudentInfo', payload);
+  }
+
+  addStudent(payload: Object) {
+    return this.http.post(this.ROOT_URL + '/addStudent', payload);
+  }
+
+  deleteStudent(payload: Object) {
+    return this.http.post(this.ROOT_URL + '/deleteStudent', payload);
+  }
+
+  editStudent(payload: Object) {
+    return this.http.post(this.ROOT_URL + '/editStudent', payload);
+  }
+
 
 }
