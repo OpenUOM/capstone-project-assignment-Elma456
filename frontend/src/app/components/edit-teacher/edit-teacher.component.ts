@@ -9,7 +9,7 @@ import { AppServiceService } from '../../app-service.service';
 })
 export class EditTeacherComponent implements OnInit {
 
-  teacherData: any;
+  teacherData: any = {};
   teacherId: any; 
 
   constructor(private service: AppServiceService, private router: Router) { 
@@ -43,8 +43,12 @@ export class EditTeacherComponent implements OnInit {
   }
 
   editTeacher(values: any) {
-    values.id = this.teacherId;
-    this.service.editTeacher(values).subscribe((response: any) => {
+    const payload = {
+      id: this.teacherId,
+      name: values.name ?? this.teacherData.name,
+      age: values.age ?? this.teacherData.age
+    };
+    this.service.editTeacher(payload).subscribe((response: any) => {
      
       this.router.navigate(['']);
     }, (error) => {

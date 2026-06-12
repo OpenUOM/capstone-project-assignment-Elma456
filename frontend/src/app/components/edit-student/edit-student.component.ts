@@ -9,20 +9,28 @@ import {AppServiceService} from '../../app-service.service';
 })
 export class EditStudentComponent implements OnInit {
 
-  studentData: any;
+  studentData: any = {};
+  studentId: any;
 
 
-  constructor(private service : AppServiceService, private router: Router) { }
-
-  navigation = this.router.getCurrentNavigation();
+  constructor(private service : AppServiceService, private router: Router) {
+    const currentNavigation = this.router.getCurrentNavigation();
+    if (currentNavigation && currentNavigation.extras && currentNavigation.extras.state) {
+      this.studentId = currentNavigation.extras.state.id;
+    }
+  }
 
   ngOnInit(): void {
-    this.getStudentData();
+    if (this.studentId) {
+      this.getStudentData();
+    } else {
+      this.router.navigate(['student']);
+    }
   }
 
   getStudentData(){
     let student = {
-      id : this.navigation.extras.state.id
+      id : this.studentId
     }
     this.service.getOneStudentData(student).subscribe((response)=>{
       this.studentData = response[0];
@@ -32,9 +40,14 @@ export class EditStudentComponent implements OnInit {
   }
 
   editStudent(values){
-    values.id = this.navigation.extras.state.id;
-    this.service.editStudent(values).subscribe((response)=>{
-      this.studentData = response[0];
+    const payload = {
+      id: this.studentId,
+      name: values.name ?? this.studentData.name,
+      age: values.age ?? this.studentData.age,
+      hometown: values.hometown ?? this.studentData.hometown
+    };
+    this.service.editStudent(payload).subscribe((response)=>{
+      this.router.navigate(['student']);
     },(error)=>{
       console.log('ERROR - ', error)
     })

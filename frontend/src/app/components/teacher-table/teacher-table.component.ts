@@ -14,8 +14,7 @@ export class TeacherTableComponent implements OnInit {
   faPlus = faPlus;
   faPenSquare = faPenSquare;
   
-  // Standard array pattern to avoid nested template mapping matrix issues
-  teacherData: any[] = [];
+  teacherData: any;
   selected: string = 'Teachers';
 
   constructor(private service: AppServiceService, private router: Router) { }
@@ -46,8 +45,7 @@ export class TeacherTableComponent implements OnInit {
   getTeacherData(): void {
     this.selected = 'Teachers';
     this.service.getTeacherData().subscribe((response: any) => {
-      // Standardize to a flat array format
-      this.teacherData = Array.isArray(response) ? response : Object.values(response);
+      this.teacherData = Object.keys(response).map((key) => [response[key]]);
     }, (error) => {
       console.log('ERROR - ', error);
     });
@@ -56,8 +54,7 @@ export class TeacherTableComponent implements OnInit {
   getStudentData(): void {
     this.selected = 'Students';
     this.service.getStudentData().subscribe((response: any) => {
-      // Standardize to matching flat array format
-      this.teacherData = Array.isArray(response) ? response : Object.values(response);
+      this.teacherData = Object.keys(response).map((key) => [response[key]]);
     }, (error) => {
       console.log('ERROR - ', error);
     });
@@ -67,16 +64,14 @@ export class TeacherTableComponent implements OnInit {
     const query = value.toLowerCase().trim();
 
     if (query.length <= 0) {
-      // Reload the correct tab view data conditionally
       if (this.selected === 'Teachers') {
         this.getTeacherData();
       } else {
         this.getStudentData();
       }
     } else {
-      // Filter directly on the uniform flat array elements
       this.teacherData = this.teacherData.filter((item) => {
-        return item && item.name && item.name.toLowerCase().includes(query);
+        return item && item[0] && item[0].name && item[0].name.toLowerCase().includes(query);
       });
     }
   }

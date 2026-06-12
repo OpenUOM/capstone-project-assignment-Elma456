@@ -52,12 +52,13 @@ export class StudentTableComponent implements OnInit {
   }
 
   search(value) {
+    const query = value.toLowerCase().trim();
     let foundItems = [];
-    if (value.length <= 0) {
+    if (query.length <= 0) {
       this.getStudentData();
     } else {
-      let b = this.studentData.filter((student) => {
-        if (student[0].name.toLowerCase().indexOf(value) > -1) {
+      this.studentData.filter((student) => {
+        if (student[0].name.toLowerCase().indexOf(query) > -1) {
           foundItems.push(student)
         }
       });
