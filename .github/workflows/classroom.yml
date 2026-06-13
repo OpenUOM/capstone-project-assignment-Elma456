@@ -88,85 +88,106 @@ jobs:
         command: npm test -- -t "POST /deleteStudent should delete a student"
         timeout: 10
         max-score: 10
+    - name: Install Frontend Dependencies
+      run: npm install
+      working-directory: ./frontend
+    - name: Install Backend Dependencies
+      run: npm install
+      working-directory: ./backend
+    - name: Start Backend Server
+      run: npm start &
+      working-directory: ./backend
+    - name: Wait for Backend Server
+      run: |
+        for i in {1..30}; do
+          if curl -s http://localhost:4401/ > /dev/null; then
+            echo "Backend server is ready"
+            exit 0
+          fi
+          echo "Waiting for backend server... ($i/30)"
+          sleep 1
+        done
+        echo "Backend server failed to start within 30 seconds"
+        exit 1
     - name: Dummy Test
       id: dummy-test
       uses: classroom-resources/autograding-command-grader@v1
       with:
         test-name: Dummy Test
-        setup-command: npm install
+        setup-command: echo "Backend already started"
         command: file=./test/dummy.test.js npm run test --prefix ./frontend
-        timeout: 10
+        timeout: 15
     - name: Frontend Add Student
       id: frontend-add-student
       uses: classroom-resources/autograding-command-grader@v1
       with:
         test-name: Frontend Add Student
-        setup-command: npm install
+        setup-command: echo "Backend already started"
         command: file=./test/student-add.test.js npm run test --prefix ./frontend
-        timeout: 10
+        timeout: 30
         max-score: 10
     - name: Frontend Delete Student
       id: frontend-delete-student
       uses: classroom-resources/autograding-command-grader@v1
       with:
         test-name: Frontend Delete Student
-        setup-command: npm install
+        setup-command: echo "Backend already started"
         command: file=./test/student-delete.test.js npm run test --prefix ./frontend
-        timeout: 10
+        timeout: 30
         max-score: 10
     - name: Frontend Edit Student
       id: frontend-edit-student
       uses: classroom-resources/autograding-command-grader@v1
       with:
         test-name: Frontend Edit Student
-        setup-command: npm install
+        setup-command: echo "Backend already started"
         command: file=./test/student-edit.test.js npm run test --prefix ./frontend
-        timeout: 10
+        timeout: 30
         max-score: 10
     - name: Frontend Search Student
       id: frontend-search-student
       uses: classroom-resources/autograding-command-grader@v1
       with:
         test-name: Frontend Search Student
-        setup-command: npm install
+        setup-command: echo "Backend already started"
         command: file=./test/student-search.test.js npm run test --prefix ./frontend
-        timeout: 10
+        timeout: 30
         max-score: 10
     - name: Frontend Add Teacher
       id: frontend-add-teacher
       uses: classroom-resources/autograding-command-grader@v1
       with:
         test-name: Frontend Add Teacher
-        setup-command: npm install
+        setup-command: echo "Backend already started"
         command: file=./test/teacher-add.test.js npm run test --prefix ./frontend
-        timeout: 10
+        timeout: 30
         max-score: 10
     - name: Frontend Delete Teacher
       id: frontend-delete-teacher
       uses: classroom-resources/autograding-command-grader@v1
       with:
         test-name: Frontend Delete Teacher
-        setup-command: npm install
+        setup-command: echo "Backend already started"
         command: file=./test/teacher-delete.test.js npm run test --prefix ./frontend
-        timeout: 10
+        timeout: 30
         max-score: 10
     - name: Frontend Edit Teacher
       id: frontend-edit-teacher
       uses: classroom-resources/autograding-command-grader@v1
       with:
         test-name: Frontend Edit Teacher
-        setup-command: npm install
+        setup-command: echo "Backend already started"
         command: file=./test/teacher-edit.test.js npm run test --prefix ./frontend
-        timeout: 10
+        timeout: 30
         max-score: 10
     - name: Frontend Search Teacher
       id: frontend-search-teacher
       uses: classroom-resources/autograding-command-grader@v1
       with:
         test-name: Frontend Search Teacher
-        setup-command: npm install
+        setup-command: echo "Backend already started"
         command: file=./test/teacher-search.test.js npm run test --prefix ./frontend
-        timeout: 10
+        timeout: 30
         max-score: 10
     - name: Autograding Reporter
       uses: classroom-resources/autograding-grading-reporter@v1
