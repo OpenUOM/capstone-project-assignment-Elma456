@@ -109,6 +109,21 @@ jobs:
         done
         echo "Backend server failed to start within 30 seconds"
         exit 1
+    - name: Start Frontend Server
+      run: npm start &
+      working-directory: ./frontend
+    - name: Wait for Frontend Server
+      run: |
+        for i in {1..30}; do
+          if curl -s http://localhost:4200/ > /dev/null 2>&1; then
+            echo "Frontend server is ready"
+            exit 0
+          fi
+          echo "Waiting for frontend server... ($i/30)"
+          sleep 1
+        done
+        echo "Frontend server failed to start within 30 seconds"
+        exit 1
     - name: Dummy Test
       id: dummy-test
       uses: classroom-resources/autograding-command-grader@v1
