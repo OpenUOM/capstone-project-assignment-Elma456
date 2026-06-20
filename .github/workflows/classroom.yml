@@ -98,8 +98,48 @@ jobs:
         cd backend
         npm install
         npm start > /tmp/backend.log 2>&1 &
+        BACKEND_PID=$!
+        echo "BACKEND_PID=$BACKEND_PID" >> $GITHUB_ENV
+        
+        # Wait for backend to be ready with health check
+        echo "Waiting for backend server to start..."
+        for i in {1..30}; do
+          if curl -s http://localhost:4401/listTeachers > /dev/null 2>&1; then
+            echo "Backend server is ready!"
+            break
+          fi
+          echo "Attempt $i: Backend not ready yet, waiting..."
+          sleep 2
+        done
+        
+        # Check if server started successfully
+        if ! curl -s http://localhost:4401/listTeachers > /dev/null 2>&1; then
+          echo "Backend server failed to start!"
+          cat /tmp/backend.log
+          exit 1
+        fi
+      timeout-minutes: 2
+    - name: Start Frontend Dev Server
+      run: |
+        cd frontend
+        npm install
+        npm start > /tmp/frontend.log 2>&1 &
+        FRONTEND_PID=$!
+        echo "FRONTEND_PID=$FRONTEND_PID" >> $GITHUB_ENV
+        
+        # Wait for frontend to be ready
+        echo "Waiting for frontend dev server to start..."
+        for i in {1..30}; do
+          if curl -s http://localhost:4200 > /dev/null 2>&1; then
+            echo "Frontend dev server is ready!"
+            break
+          fi
+          echo "Attempt $i: Frontend not ready yet, waiting..."
+          sleep 2
+        done
+        
         sleep 5
-      timeout-minutes: 1
+      timeout-minutes: 2
     - name: Frontend Add Student
       id: frontend-add-student
       uses: classroom-resources/autograding-command-grader@v1
