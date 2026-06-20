@@ -1,11 +1,10 @@
 import server from "./server.js";
 
 
-
 if(process.env.NODE_ENV === "test"){
-  server.listen(3000, function() {
+  server.listen(4401, function() {
     console.log(
-      "Capstone Project Backend is running on http://localhost:3000"
+      "Capstone Project Backend is running on http://localhost:4401"
     );
   });
 }else{
