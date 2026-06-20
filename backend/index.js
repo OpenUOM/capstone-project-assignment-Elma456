@@ -1,9 +1,8 @@
 import server from "./server.js";
 
-// Example of the change applied:
+// You can keep this as a commented-out reminder of the migration:
 // Old: const mergedObj = util._extend(obj1, obj2);
-const mergedObj = Object.assign(obj1, obj2); 
-
+// New syntax would be: const mergedObj = Object.assign({}, target, source);
 
 if (process.env.NODE_ENV === "test") {
   server.listen(4401, function() {
