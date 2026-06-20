@@ -4,6 +4,7 @@ import server from "./server.js";
 // Old: const mergedObj = util._extend(obj1, obj2);
 const mergedObj = Object.assign(obj1, obj2); 
 
+
 if (process.env.NODE_ENV === "test") {
   server.listen(4401, function() {
     console.log(
