@@ -90,63 +90,16 @@ jobs:
       uses: classroom-resources/autograding-command-grader@v1
       with:
         test-name: Dummy Test
-        setup-command: npm install
-        command: file=./test/dummy.test.js npm run test --prefix ./frontend
-        timeout: 10
-    - name: Start Backend Server
-      run: |
-        cd backend
-        npm install
-        npm start > /tmp/backend.log 2>&1 &
-        BACKEND_PID=$!
-        echo "BACKEND_PID=$BACKEND_PID" >> $GITHUB_ENV
-        
-        # Wait for backend to be ready with health check
-        echo "Waiting for backend server to start..."
-        for i in {1..30}; do
-          if curl -s http://localhost:4401/listTeachers > /dev/null 2>&1; then
-            echo "Backend server is ready!"
-            break
-          fi
-          echo "Attempt $i: Backend not ready yet, waiting..."
-          sleep 2
-        done
-        
-        # Check if server started successfully
-        if ! curl -s http://localhost:4401/listTeachers > /dev/null 2>&1; then
-          echo "Backend server failed to start!"
-          cat /tmp/backend.log
-          exit 1
-        fi
-      timeout-minutes: 2
-    - name: Start Frontend Dev Server
-      run: |
-        cd frontend
-        npm install
-        npm start > /tmp/frontend.log 2>&1 &
-        FRONTEND_PID=$!
-        echo "FRONTEND_PID=$FRONTEND_PID" >> $GITHUB_ENV
-        
-        # Wait for frontend to be ready
-        echo "Waiting for frontend dev server to start..."
-        for i in {1..30}; do
-          if curl -s http://localhost:4200 > /dev/null 2>&1; then
-            echo "Frontend dev server is ready!"
-            break
-          fi
-          echo "Attempt $i: Frontend not ready yet, waiting..."
-          sleep 2
-        done
-        
-        sleep 5
-      timeout-minutes: 2
+        setup-command: cd frontend && npm install && cd ../backend && npm install && npm start > /tmp/backend.log 2>&1 &
+        command: sleep 8 && file=./test/dummy.test.js npm run test --prefix ./frontend
+        timeout: 30
     - name: Frontend Add Student
       id: frontend-add-student
       uses: classroom-resources/autograding-command-grader@v1
       with:
         test-name: Frontend Add Student
-        setup-command: npm install
-        command: file=./test/student-add.test.js npm run test --prefix ./frontend
+        setup-command: cd frontend && npm install && cd ../backend && npm install && npm start > /tmp/backend.log 2>&1 &
+        command: sleep 8 && file=./test/student-add.test.js npm run test --prefix ./frontend
         timeout: 30
         max-score: 10
     - name: Frontend Delete Student
@@ -154,8 +107,8 @@ jobs:
       uses: classroom-resources/autograding-command-grader@v1
       with:
         test-name: Frontend Delete Student
-        setup-command: npm install
-        command: file=./test/student-delete.test.js npm run test --prefix ./frontend
+        setup-command: cd frontend && npm install && cd ../backend && npm install && npm start > /tmp/backend.log 2>&1 &
+        command: sleep 8 && file=./test/student-delete.test.js npm run test --prefix ./frontend
         timeout: 30
         max-score: 10
     - name: Frontend Edit Student
@@ -163,8 +116,8 @@ jobs:
       uses: classroom-resources/autograding-command-grader@v1
       with:
         test-name: Frontend Edit Student
-        setup-command: npm install
-        command: file=./test/student-edit.test.js npm run test --prefix ./frontend
+        setup-command: cd frontend && npm install && cd ../backend && npm install && npm start > /tmp/backend.log 2>&1 &
+        command: sleep 8 && file=./test/student-edit.test.js npm run test --prefix ./frontend
         timeout: 30
         max-score: 10
     - name: Frontend Search Student
@@ -172,8 +125,8 @@ jobs:
       uses: classroom-resources/autograding-command-grader@v1
       with:
         test-name: Frontend Search Student
-        setup-command: npm install
-        command: file=./test/student-search.test.js npm run test --prefix ./frontend
+        setup-command: cd frontend && npm install && cd ../backend && npm install && npm start > /tmp/backend.log 2>&1 &
+        command: sleep 8 && file=./test/student-search.test.js npm run test --prefix ./frontend
         timeout: 30
         max-score: 10
     - name: Frontend Add Teacher
@@ -181,8 +134,8 @@ jobs:
       uses: classroom-resources/autograding-command-grader@v1
       with:
         test-name: Frontend Add Teacher
-        setup-command: npm install
-        command: file=./test/teacher-add.test.js npm run test --prefix ./frontend
+        setup-command: cd frontend && npm install && cd ../backend && npm install && npm start > /tmp/backend.log 2>&1 &
+        command: sleep 8 && file=./test/teacher-add.test.js npm run test --prefix ./frontend
         timeout: 30
         max-score: 10
     - name: Frontend Delete Teacher
@@ -190,8 +143,8 @@ jobs:
       uses: classroom-resources/autograding-command-grader@v1
       with:
         test-name: Frontend Delete Teacher
-        setup-command: npm install
-        command: file=./test/teacher-delete.test.js npm run test --prefix ./frontend
+        setup-command: cd frontend && npm install && cd ../backend && npm install && npm start > /tmp/backend.log 2>&1 &
+        command: sleep 8 && file=./test/teacher-delete.test.js npm run test --prefix ./frontend
         timeout: 30
         max-score: 10
     - name: Frontend Edit Teacher
@@ -199,8 +152,8 @@ jobs:
       uses: classroom-resources/autograding-command-grader@v1
       with:
         test-name: Frontend Edit Teacher
-        setup-command: npm install
-        command: file=./test/teacher-edit.test.js npm run test --prefix ./frontend
+        setup-command: cd frontend && npm install && cd ../backend && npm install && npm start > /tmp/backend.log 2>&1 &
+        command: sleep 8 && file=./test/teacher-edit.test.js npm run test --prefix ./frontend
         timeout: 30
         max-score: 10
     - name: Frontend Search Teacher
@@ -208,8 +161,8 @@ jobs:
       uses: classroom-resources/autograding-command-grader@v1
       with:
         test-name: Frontend Search Teacher
-        setup-command: npm install
-        command: file=./test/teacher-search.test.js npm run test --prefix ./frontend
+        setup-command: cd frontend && npm install && cd ../backend && npm install && npm start > /tmp/backend.log 2>&1 &
+        command: sleep 8 && file=./test/teacher-search.test.js npm run test --prefix ./frontend
         timeout: 30
         max-score: 10
     - name: Autograding Reporter
