@@ -38,12 +38,14 @@ const addTeacher = async (id, name, age) => {
 }
 
 const updateTeacher = async (name, age, id) => {
-    await knex_db('teacher').where({ id }).update({ name, age });
+    console.log("USING KNEX BUILDER FOR UPDATE TEACHER", {name, age, id});
+    await knex_db('teacher').where({ id: Number(id) }).update({ name: String(name), age: Number(age) });
     return { status: "Successfully updated Teacher" };
 }
 
 const deleteTeacher = async (id) => {
-    await knex_db('teacher').where({ id }).del();
+    console.log("USING KNEX BUILDER FOR DELETE TEACHER", {id});
+    await knex_db('teacher').where({ id: Number(id) }).del();
     return { status: "Successfully deleted Teacher" };
 }
 
