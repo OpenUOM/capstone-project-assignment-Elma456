@@ -90,80 +90,80 @@ jobs:
       uses: classroom-resources/autograding-command-grader@v1
       with:
         test-name: Dummy Test
-        setup-command: cd frontend && npm install && cd ../backend && npm install && npm start > /tmp/backend.log 2>&1 &
-        command: sleep 8 && file=./test/dummy.test.js npm run test --prefix ./frontend
-        timeout: 30
+        setup-command: npm install
+        command: file=./test/dummy.test.js npm run test --prefix ./frontend
+        timeout: 10
     - name: Frontend Add Student
       id: frontend-add-student
       uses: classroom-resources/autograding-command-grader@v1
       with:
         test-name: Frontend Add Student
-        setup-command: cd frontend && npm install && cd ../backend && npm install && npm start > /tmp/backend.log 2>&1 &
-        command: sleep 8 && file=./test/student-add.test.js npm run test --prefix ./frontend
-        timeout: 30
+        setup-command: npm install
+        command: file=./test/student-add.test.js npm run test --prefix ./frontend
+        timeout: 10
         max-score: 10
     - name: Frontend Delete Student
       id: frontend-delete-student
       uses: classroom-resources/autograding-command-grader@v1
       with:
         test-name: Frontend Delete Student
-        setup-command: cd frontend && npm install && cd ../backend && npm install && npm start > /tmp/backend.log 2>&1 &
-        command: sleep 8 && file=./test/student-delete.test.js npm run test --prefix ./frontend
-        timeout: 30
+        setup-command: npm install
+        command: file=./test/student-delete.test.js npm run test --prefix ./frontend
+        timeout: 10
         max-score: 10
     - name: Frontend Edit Student
       id: frontend-edit-student
       uses: classroom-resources/autograding-command-grader@v1
       with:
         test-name: Frontend Edit Student
-        setup-command: cd frontend && npm install && cd ../backend && npm install && npm start > /tmp/backend.log 2>&1 &
-        command: sleep 8 && file=./test/student-edit.test.js npm run test --prefix ./frontend
-        timeout: 30
+        setup-command: npm install
+        command: file=./test/student-edit.test.js npm run test --prefix ./frontend
+        timeout: 10
         max-score: 10
     - name: Frontend Search Student
       id: frontend-search-student
       uses: classroom-resources/autograding-command-grader@v1
       with:
         test-name: Frontend Search Student
-        setup-command: cd frontend && npm install && cd ../backend && npm install && npm start > /tmp/backend.log 2>&1 &
-        command: sleep 8 && file=./test/student-search.test.js npm run test --prefix ./frontend
-        timeout: 30
+        setup-command: npm install
+        command: file=./test/student-search.test.js npm run test --prefix ./frontend
+        timeout: 10
         max-score: 10
     - name: Frontend Add Teacher
       id: frontend-add-teacher
       uses: classroom-resources/autograding-command-grader@v1
       with:
         test-name: Frontend Add Teacher
-        setup-command: cd frontend && npm install && cd ../backend && npm install && npm start > /tmp/backend.log 2>&1 &
-        command: sleep 8 && file=./test/teacher-add.test.js npm run test --prefix ./frontend
-        timeout: 30
+        setup-command: npm install
+        command: file=./test/teacher-add.test.js npm run test --prefix ./frontend
+        timeout: 10
         max-score: 10
     - name: Frontend Delete Teacher
       id: frontend-delete-teacher
       uses: classroom-resources/autograding-command-grader@v1
       with:
         test-name: Frontend Delete Teacher
-        setup-command: cd frontend && npm install && cd ../backend && npm install && npm start > /tmp/backend.log 2>&1 &
-        command: sleep 8 && file=./test/teacher-delete.test.js npm run test --prefix ./frontend
-        timeout: 30
+        setup-command: npm install
+        command: file=./test/teacher-delete.test.js npm run test --prefix ./frontend
+        timeout: 10
         max-score: 10
     - name: Frontend Edit Teacher
       id: frontend-edit-teacher
       uses: classroom-resources/autograding-command-grader@v1
       with:
         test-name: Frontend Edit Teacher
-        setup-command: cd frontend && npm install && cd ../backend && npm install && npm start > /tmp/backend.log 2>&1 &
-        command: sleep 8 && file=./test/teacher-edit.test.js npm run test --prefix ./frontend
-        timeout: 30
+        setup-command: npm install
+        command: file=./test/teacher-edit.test.js npm run test --prefix ./frontend
+        timeout: 10
         max-score: 10
     - name: Frontend Search Teacher
       id: frontend-search-teacher
       uses: classroom-resources/autograding-command-grader@v1
       with:
         test-name: Frontend Search Teacher
-        setup-command: cd frontend && npm install && cd ../backend && npm install && npm start > /tmp/backend.log 2>&1 &
-        command: sleep 8 && file=./test/teacher-search.test.js npm run test --prefix ./frontend
-        timeout: 30
+        setup-command: npm install
+        command: file=./test/teacher-search.test.js npm run test --prefix ./frontend
+        timeout: 10
         max-score: 10
     - name: Autograding Reporter
       uses: classroom-resources/autograding-grading-reporter@v1
