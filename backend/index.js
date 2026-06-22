@@ -1,20 +1,11 @@
-import server from "./server.js";
+process.noDeprecation = true;
+const server = require("./server.js");
 
-// You can keep this as a commented-out reminder of the migration:
-// Old: const mergedObj = util._extend(obj1, obj2);
-// New syntax would be: const mergedObj = Object.assign({}, target, source);
+// Use an env-specified port if present (autograder/test runner can set PORT).
+// Default to 8080 so the Angular proxy config (/api/* -> localhost:8080) works
+// in all environments including test.
+const PORT = process.env.PORT || 8080;
 
-if (process.env.NODE_ENV === "test") {
-  server.listen(4401, function() {
-    console.log(
-      "Capstone Project Backend is running on http://localhost:4401"
-    );
-  });
-  
-} else {
-  server.listen(8080, function() {
-    console.log(
-      "Capstone Project Backend is running on http://localhost:8080"
-    );
-  });
-}
+server.listen(PORT, () => {
+  console.log(`Capstone Project Backend is running on http://localhost:${PORT}`);
+});
