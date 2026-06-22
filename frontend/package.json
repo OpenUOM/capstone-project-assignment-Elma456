@@ -2,17 +2,14 @@
   "name": "capstone-frontend",
   "version": "0.0.0",
   "scripts": {
-    "ng": "cross-env NODE_OPTIONS=--openssl-legacy-provider ng",
+    "ng": "ng",
     "start": "cross-env NODE_OPTIONS=--openssl-legacy-provider ng serve",
     "build": "cross-env NODE_OPTIONS=--openssl-legacy-provider ng build",
-    "test": "npm i && npm i forever && export NODE_ENV=test && export NODE_OPTIONS=--openssl-legacy-provider && forever start --minUptime 30000 ../backend/index.js && forever start --minUptime 30000 node_modules/@angular/cli/bin/ng serve --port 4401 --configuration=test && timeout 180 bash -c 'until curl -s http://localhost:4401 > /dev/null 2>&1; do sleep 5; done' && testcafe chrome:headless $file && forever stopall",
+    "test": "npm i && npm i forever && cross-env NODE_ENV=test NODE_OPTIONS=--openssl-legacy-provider forever start --minUptime 30000 ../backend/index.js && cross-env NODE_OPTIONS=--openssl-legacy-provider forever start --minUptime 30000 node_modules/@angular/cli/bin/ng serve --port 4401 --configuration=test && sleep 10 && testcafe chrome:headless $file && forever stopall",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
   "private": true,
-  "engines": {
-    "node": ">=16"
-  },
   "jest": {
     "testEnvironment": "node",
     "coveragePathIgnorePatterns": [
@@ -45,19 +42,19 @@
     "@types/jasmine": "~3.5.0",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "^16",
-    "codelyzer": "^6.0.0-next.1",
+    "codelyzer": "^0.0.28",
     "cross-env": "^7.0.3",
     "jasmine-core": "~3.8.0",
     "jasmine-spec-reporter": "~5.0.0",
-    "karma": "~5.0.0",
+    "karma": "^6.4.4",
     "karma-chrome-launcher": "~3.1.0",
     "karma-coverage-istanbul-reporter": "~3.0.2",
     "karma-jasmine": "~3.3.0",
     "karma-jasmine-html-reporter": "^1.6.0",
-    "protractor": "~7.0.0",
-    "testcafe": "1.18.6",
+    "protractor": "^7.0.0",
+    "testcafe": "^3.7.4",
     "ts-node": "~8.3.0",
-    "tslint": "~6.1.0",
+    "tslint": "^5.8.0",
     "typescript": "~3.9.5"
   }
 }

@@ -6,27 +6,9 @@
         }
     },
     "/test/*" : {
-        "target" : "http://localhost:8080",
+        "target" : "http://localhost:3000",
         "pathRewrite" : {
             "^/test" : ""
         }
-    },
-    "/dbinitialize" : {
-        "target" : "http://localhost:8080"
-    },
-    "/listStudents" : {
-        "target" : "http://localhost:8080"
-    },
-    "/getStudentInfo" : {
-        "target" : "http://localhost:8080"
-    },
-    "/addStudent" : {
-        "target" : "http://localhost:8080"
-    },
-    "/deleteStudent" : {
-        "target" : "http://localhost:8080"
-    },
-    "/editStudent" : {
-        "target" : "http://localhost:8080"
     }
 }
