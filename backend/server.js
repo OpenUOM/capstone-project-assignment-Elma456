@@ -1,9 +1,4 @@
 const express = require ("express");
-const bodyParser = require  ("body-parser");
-const cors = require("cors");
-const app = express();
-
-
 
 const {
   readTeachers,
@@ -19,8 +14,8 @@ const {
   dbinitialize
 } = require ("./database.js");
 
-app.use(cors());
-
+const app = express();
+const bodyParser = require  ("body-parser");
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
@@ -61,10 +56,11 @@ app.post("/addTeacher", async function (req, res) {
   res.end(JSON.stringify(data));
 });
 
-
 app.post("/editTeacher", async function (req, res) {
   let reqBody = req.body;
-  
+  console.log(
+    "Request received to update teacher. Req body: " + JSON.stringify(reqBody)
+  );
   let data = await updateTeacher(reqBody.name,reqBody.age,reqBody.id);
 
   res.setHeader("Content-Type", "application/json");
