@@ -65,7 +65,6 @@ const addTeacher = async (id, name, age) => {
     });
 }
 
-
 const updateTeacher = async (name, age, id) => {
     const sql = `UPDATE teacher SET name=?, age=? WHERE id=?`
     return new Promise((resolve, reject) => {
@@ -164,7 +163,6 @@ const deleteStudent = async (id) => {
             });
     });
 }
-
 
 module.exports = {
     readTeachers,
