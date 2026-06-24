@@ -71,8 +71,7 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
             "browserTarget": "capstone-frontend:build",
-            "proxyConfig": "./proxy.conf.json",
-            "port": 4401
+            "proxyConfig": "./proxy.conf.json"
           },
           "configurations": {
             "production": {
@@ -132,9 +131,10 @@
           }
         }
       }
-    }},
+    }
+  },
   "defaultProject": "capstone-frontend",
   "cli": {
-    "analytics": false
+    "analytics": "e2d539fd-a00d-4fbd-b8c2-dad6a4109f90"
   }
 }
